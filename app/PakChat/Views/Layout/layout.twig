@@ -1,0 +1,14 @@
+{% include "Layout/Partials/head.twig" %}
+
+<body>
+
+<div class="container">
+    <h1>{{ title }}</h1>
+
+    {{ block("body") }}
+</div>
+
+{% include "Layout/Partials/footer.twig" %}
+
+</body>
+</html>

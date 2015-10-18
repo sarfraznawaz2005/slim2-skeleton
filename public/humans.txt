@@ -1,0 +1,11 @@
+/* TEAM */
+	Programming and Design: Sarfraz Ahmed
+	Contact: sarfraznawaz2005@gmail.com
+	Twitter: @sarfraznawaz
+	From: Karachi, Pakistan
+
+/* Tools */
+	PHPStorm, Notepad++, FileZilla
+
+/* Uses */
+	slim framework - a light-weight php framework (slimframework.com)
