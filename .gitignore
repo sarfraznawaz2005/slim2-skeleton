@@ -2,6 +2,7 @@ database.sqlite
 vendor
 composer.lock
 public/cache
+applog.log
 
 # phpstorm project files
 .idea
