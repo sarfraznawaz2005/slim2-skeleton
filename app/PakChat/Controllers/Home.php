@@ -11,7 +11,7 @@ class Home extends Controller
     {
         $data['title'] = $this->title;
 
-        $this->app->logger->info("Home Controller");
+        $this->app->log->info("Home Controller");
 
         $this->app->render('home.twig', $data);
         //print_r(User::all());
