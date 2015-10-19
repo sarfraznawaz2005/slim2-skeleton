@@ -5,6 +5,7 @@ if (PHP_SAPI == 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
     // something which should probably be served as a static file
     $file = __DIR__ . $_SERVER['REQUEST_URI'];
+
     if (is_file($file)) {
         return false;
     }
@@ -30,7 +31,7 @@ $options = array(
     'cookies.encrypt' => true,
     'cookies.cipher' => MCRYPT_RIJNDAEL_256,
     'cookies.secret_key' => md5('@!secret!@'),
-    'cookies.lifetime' => '20 minutes'
+    'cookies.lifetime' => '30 minutes'
 );
 
 $app = new \Slim\Slim($options);
@@ -41,6 +42,8 @@ $view->parserOptions = array(
     'debug' => true,
     'cache' => dirname(__FILE__) . '/cache',
     'auto_reload' => true,
+    'strict_variables' => false,
+    'autoescape' => true,
 );
 
 // slim environment
@@ -56,10 +59,12 @@ $log = $app->getLog();
 $log->setEnabled(false);
 
 // monolog
-$logger = new \Monolog\Logger($config['appname']);
-$logger->pushProcessor(new \Monolog\Processor\UidProcessor());
-$logger->pushHandler(new \Monolog\Handler\StreamHandler(APP_PATH . '/applog.log', \Monolog\Logger::DEBUG));
-$app->logger = $logger;
+$app->container->singleton('log', function () use ($config) {
+    $log = new \Monolog\Logger($config['appname']);
+    $log->pushHandler(new \Monolog\Handler\StreamHandler(APP_PATH . '/applog.log', \Monolog\Logger::DEBUG));
+    return $log;
+});
+
 
 // database configuration
 if ($config['database_enable']) {
